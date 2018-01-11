@@ -1,99 +1,124 @@
 <template>
-  <v-app>
-    <v-navigation-drawer
-      fixed
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      app
-    >
-      <v-list>
-        <v-list-tile 
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-          exact
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <v-content>
-      <v-container fluid>
-        <v-slide-y-transition mode="out-in">
-          <v-layout column align-center>
-            <img src="/static/v.png" alt="Vuetify.js" class="mb-5" />
-            <blockquote>
-              &#8220;First, solve the problem. Then, write the code.&#8221;
-              <footer>
-                <small>
-                  <em>&mdash;John Johnson</em>
-                </small>
-              </footer>
-            </blockquote>
+<v-app id="inspire">
+  <v-navigation-drawer fixed clipped app v-model="drawer">
+    <v-list style="padding-top: 20px;">
+      <template v-for="(item, i) in items">
+          <v-layout
+            row
+            v-if="item.heading"
+            align-center
+            :key="i"
+          >
+            <v-flex xs6>
+              <v-subheader v-if="item.heading">
+                {{ item.heading }}
+              </v-subheader>
+            </v-flex>
+            <v-flex xs6 class="text-xs-center">
+              <a href="#!" class="body-2 black--text">EDIT</a>
+            </v-flex>
           </v-layout>
-        </v-slide-y-transition>
-      </v-container>
-    </v-content>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      fixed
-    >
-      <v-list>
-        <v-list-tile @click.native="right = !right">
-          <v-list-tile-action>
-            <v-icon>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
-    </v-footer>
-  </v-app>
+          <v-list-group v-else-if="item.children" v-model="item.model" no-action>
+            <v-list-tile slot="item" @click="">
+              <v-list-tile-action>
+                <v-icon>{{ item.model ? item.icon : item['icon-alt'] }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ item.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-icon>keyboard_arrow_down</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-list-tile
+              v-for="(child, i) in item.children"
+              :key="i"
+              @click=""
+            >
+              <v-list-tile-action v-if="child.icon">
+                <v-icon>{{ child.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ child.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list-group>
+          <v-list-tile v-else @click="">
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                {{ item.text }}
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
+    </v-list>
+  </v-navigation-drawer>
+  <v-toolbar color="purple darken-1" dark app clipped-left fixed>
+    <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <span class="hidden-xs-only">Missionhope</span>
+    </v-toolbar-title>
+
+    <div class="d-flex align-center" style="margin-left: auto">
+      <v-btn icon>
+        <v-icon>notifications</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>bar_chart</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-avatar size="24px" tile>
+          <img src="https://vuetifyjs.com/static/doc-images/logo.svg" alt="Vuetify">
+        </v-avatar>
+      </v-btn>
+    </div>
+  </v-toolbar>
+  <v-content>
+    <v-container fluid fill-height>
+      <v-layout justify-center align-center>
+
+      </v-layout>
+    </v-container>
+  </v-content>
+  <v-btn fab bottom right color="cyan" dark fixed @click.stop="dialog = !dialog">
+    <v-icon>add</v-icon>
+  </v-btn>
+</v-app>
 </template>
 
 <script>
-  export default {
-    data{{#unless_eq lintConfig "airbnb"}} {{/unless_eq}}() {
-      return {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        items: [{
-          icon: 'bubble_chart',
-          title: 'Inspire'{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
-        }],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Vuetify.js'{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
-      }{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
-    }{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
-  }{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
+export default {
+  data: () => ({
+    dialog: false,
+    drawer: null,
+    items: [
+      {
+        icon: 'dashboard',
+        text: 'Dashboard'
+      },
+      {
+        icon: 'list',
+        text: 'Plan'
+      },
+      {
+        icon: 'replay',
+        text: 'Timeline'
+      },
+      {
+        icon: 'help',
+        text: 'Get help'
+      }
+    ]
+  }),
+  props: {
+    source: String
+  }
+}
 </script>
