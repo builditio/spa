@@ -21,7 +21,7 @@
           <v-list-group v-else-if="item.children" v-model="item.model" no-action>
             <v-list-tile slot="item" @click="">
               <v-list-tile-action>
-                <v-icon>{{ item.model ? item.icon : item["icon-alt"] }}</v-icon>
+                <v-icon>{{ item.model ? item.icon : item['icon-alt'] }}</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title>
