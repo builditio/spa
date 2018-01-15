@@ -8,7 +8,7 @@
       app
     >
       <v-list>
-        <v-list-tile 
+        <v-list-tile
           value="true"
           v-for="(item, i) in items"
           :key="i"
@@ -79,21 +79,21 @@
 </template>
 
 <script>
-  export default {
-    data{{#unless_eq lintConfig "airbnb"}} {{/unless_eq}}() {
-      return {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        items: [{
-          icon: 'bubble_chart',
-          title: 'Inspire'{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
-        }],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Vuetify.js'{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
-      }{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
-    }{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
-  }{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
+export default {
+  data{{#unless_eq lintConfig "airbnb"}} {{/unless_eq}}() {
+    return {
+      clipped: false,
+      drawer: true,
+      fixed: false,
+      items: [{
+        icon: 'bubble_chart',
+        title: 'Inspire'{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
+      }],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: 'Vuetify.js'{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
+    }{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
+  }{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
+}{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 </script>
